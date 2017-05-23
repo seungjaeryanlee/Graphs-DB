@@ -16,6 +16,11 @@ def index():
 def graph_home():
     return 'Here are list of graphs in our database.'
 
-@app.route('/graphs/<graphname>')
-def graph(graphname):
-    return render_template('graph.html', name=graphname.title(), description='Placeholder for description paragraph')
+@app.route('/graphs/<graph_name>')
+def graph(graph_name):
+    graph = next((graph for graph in graphs if graph['name'] == graph_name), None)
+    if graph != None:
+        return render_template('graph.html', graph=graph)    
+    else:
+        return '404 Not Found'
+        #return render_template('404.html')
