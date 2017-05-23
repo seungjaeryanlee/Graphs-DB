@@ -1,0 +1,20 @@
+#!/bin/bash
+# Run by typing '. setup', NOT './setup'
+
+# Install Virtualenv
+pip install virtualenv
+
+# Create Virtualenv
+virtualenv flask
+
+# Activate Virtualenv
+source flask/bin/activate
+
+# Install Flask inside Virtualenv
+pip install flask
+
+# Setup Environment Variables
+export FLASK_APP="app.py"
+
+# Deactivate Virtualenv
+deactivate
