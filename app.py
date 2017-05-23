@@ -4,12 +4,12 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return 'Index Page'
+    return 'Welcome to Graphs DB!'
 
 @app.route('/graph')
 def graph_home():
-    return 'Here are list of graphs'
+    return 'Here are list of graphs in our database.'
 
 @app.route('/graph/<graphname>')
 def graph(graphname):
-    return render_template('graph.html', name=graphname, description='Placeholder for description paragraph')
+    return render_template('graph.html', name=graphname.title(), description='Placeholder for description paragraph')
