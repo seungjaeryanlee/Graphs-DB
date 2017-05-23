@@ -13,8 +13,9 @@ source flask/bin/activate
 # Install Flask inside Virtualenv
 pip install flask
 
-# Setup Environment Variables
-export FLASK_APP="app.py"
+# Make activate set environment variable
+echo -e "\n# Custom environment variable for Flask" >> flask/bin/activate
+echo -e "export FLASK_APP=\"app.py\"" >> flask/bin/activate
 
 # Deactivate Virtualenv
 deactivate
