@@ -22,5 +22,8 @@ def graph(graph_name):
     if graph != None:
         return render_template('graph.html', graph=graph)    
     else:
-        return '404 Not Found'
-        #return render_template('404.html')
+        return render_template('404.html', error_msg='No such graph exists!'), 404
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html', error_msg='Page does not exist!'), 404
