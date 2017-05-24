@@ -14,13 +14,13 @@ app = Flask(__name__)
 def index():
     form = FilterForm(request.form)
     if request.method == 'POST' and form.validate():
-        return redirect(url_for('search'))
+        return redirect(url_for('search', planarity=form.planarity.data), directedness=form.directedness.data)
     else:
         return render_template('home.html',form=form)
 
-@app.route('/search')
-def search():
-    return 'Placeholder: Search result'
+@app.route('/search/<planarity>/<directedness>')
+def search(planarity, directedness):
+    return render_template('search.html', planarity=planarity, directedness=directedness)
 
 @app.route('/graphs')
 def graph_home():
