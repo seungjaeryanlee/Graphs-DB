@@ -6,21 +6,21 @@
 <body>
   <h1>Graphs DB</h1>
 
-  <form>
-    <fieldset id="planar">
-      <h3>Planarity</h3>
-      <input type="radio" value="both" name="planar" checked>Both</input>
-      <input type="radio" value="planar" name="planar">Planar</input>
-      <input type="radio" value="nonplanar" name="planar">Nonplanar</input>
-    </fieldset>
-
-    <fieldset id="directed">
-      <h3>Directedness</h3>
-      <input type="radio" value="both" name="directed" checked>Both</input>
-      <input type="radio" value="directed" name="directed">Directed</input>
-      <input type="radio" value="undirected" name="directed">Undirected</input>
-    </fieldset>
-
-    <p><input type="submit" value="Submit"></p>
-  </form>
+  <form method="post">
+    <h3>Planarity</h3>
+    {% for choice in form.planarity %}
+      <tr>
+        <td>{{ choice }}</td>
+        <td>{{ choice.label }}</td>
+      </tr>
+    {% endfor %}
+    <h3>Directedness</h3>
+    {% for choice in form.directedness %}
+      <tr>
+       <td>{{ choice }}</td>
+        <td>{{ choice.label }}</td>
+      </tr>
+    {% endfor %}
+    <p><input type="submit"></p>
+</form>
 </body>

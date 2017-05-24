@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request
 import json
 import random
+from forms import FilterForm
 
 # Parse data.json
 with open('data.json') as data_file:    
@@ -11,12 +12,15 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    if request.method == 'GET':
-        return render_template('home.html', graphs=graphs)
+    form = FilterForm(request.form)
+    if request.method == 'POST' and form.validate():
+        return redirect(url_for('search'))
+    else:
+        return render_template('home.html',form=form)
 
-    if request.method == 'POST':
-        print(request.form.getlist('hello'))
-        return render_template('home.html', graphs=graphs)
+@app.route('/search')
+def search():
+    return 'Placeholder: Search result'
 
 @app.route('/graphs')
 def graph_home():
