@@ -5,6 +5,11 @@
 </head>
 <body>
   <h1>Search Result</h1>
-  {{ planarity }}
-  {{ directedness }}
-  </body>
+  <ul class="graphs">
+    {% for graph in graphs if matches_filter(graph, planarity, directedness) %}
+      <li> <h2> <a href="graphs/{{ graph.name }}"> {{ graph.name.title() }} Graph </a></h2></li>
+    {% else %}
+      <h2>No graphs found.</h2>  
+    {% endfor %}
+  </ul>
+</body>

@@ -3,6 +3,16 @@ import json
 import random
 from forms import FilterForm
 
+def matches_filter(graph, planarity, directedness):
+    if planarity != 'both':
+        if not planarity in graph['properties']:
+            return False;
+    if directedness != 'both':
+        if not directedness in graph['properties']:
+            return False;
+
+    return True;
+
 # Parse data.json
 with open('data.json') as data_file:    
     data = json.load(data_file)
@@ -14,13 +24,13 @@ app = Flask(__name__)
 def index():
     form = FilterForm(request.form)
     if request.method == 'POST' and form.validate():
-        return redirect(url_for('search', planarity=form.planarity.data), directedness=form.directedness.data)
+        return redirect(url_for('search', planarity=form.planarity.data, directedness=form.directedness.data))
     else:
         return render_template('home.html',form=form)
 
 @app.route('/search/<planarity>/<directedness>')
 def search(planarity, directedness):
-    return render_template('search.html', planarity=planarity, directedness=directedness)
+    return render_template('search.html', graphs=graphs, matches_filter=matches_filter, planarity=planarity, directedness=directedness)
 
 @app.route('/graphs')
 def graph_home():
@@ -37,7 +47,6 @@ def graph(graph_name):
 @app.route('/random')
 def get_random_graph():
 	return redirect(url_for('graph', graph_name=random.choice(graphs)['name']))
-
 
 @app.errorhandler(404)
 def page_not_found(e):
