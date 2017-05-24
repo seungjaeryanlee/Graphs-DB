@@ -1,5 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 import json
+import random
 
 # Parse data.json
 with open('data.json') as data_file:    
@@ -23,6 +24,11 @@ def graph(graph_name):
         return render_template('graph.html', graph=graph)    
     else:
         return render_template('404.html', error_msg='No such graph exists!'), 404
+
+@app.route('/random')
+def get_random_graph():
+	return redirect(url_for('graph', graph_name=random.choice(graphs)['name']))
+
 
 @app.errorhandler(404)
 def page_not_found(e):
