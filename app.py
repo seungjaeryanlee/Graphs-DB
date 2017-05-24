@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 import json
 import random
 
@@ -9,9 +9,14 @@ graphs = data['graphs']
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('home.html', graphs=graphs)
+    if request.method == 'GET':
+        return render_template('home.html', graphs=graphs)
+
+    if request.method == 'POST':
+        print(request.form.getlist('hello'))
+        return render_template('home.html', graphs=graphs)
 
 @app.route('/graphs')
 def graph_home():

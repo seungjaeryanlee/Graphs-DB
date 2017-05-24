@@ -1,0 +1,13 @@
+<!doctype html>
+<title>Graphs DB</title>
+<head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='list.css') }}">
+</head>
+<body>
+  <h1>Graphs DB</h1>
+  <ul class="graphs">
+    {% for graph in graphs %}
+      <li> <h2> <a href="graphs/{{ graph.name }}"> {{ graph.name.title() }} Graph </a></h2></li>
+    {% endfor %}
+  </ul>
+</body>
