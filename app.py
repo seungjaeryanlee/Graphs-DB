@@ -1,4 +1,5 @@
 from flask import Flask, render_template, redirect, url_for, request
+from flask_bootstrap import Bootstrap
 import json
 import random
 from forms import FilterForm
@@ -13,12 +14,19 @@ def matches_filter(graph, planarity, directedness):
 
     return True;
 
+def create_app():
+    app = Flask(__name__)
+    Bootstrap(app)
+
+    return app
+
 # Parse data.json
 with open('data.json') as data_file:    
     data = json.load(data_file)
 graphs = data['graphs']
 
-app = Flask(__name__)
+app = create_app()
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():

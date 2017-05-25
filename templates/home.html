@@ -1,26 +1,31 @@
-<!doctype html>
-<title>Graphs DB</title>
-<head>
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}">
-</head>
-<body>
-  <h1>Graphs DB</h1>
+{% extends "bootstrap/base.html" %}
+{% block html %}
+  {% block head %}
+    <title>Graphs DB</title>
+    {% block styles %}
+      {{super()}}
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}">
+    {% endblock %} 
+  {% endblock %}
+  {% block body %}
+    <h1>Graphs DB</h1>
 
-  <form method="post">
-    <h3>Planarity</h3>
-    {% for choice in form.planarity %}
-      <tr>
-        <td>{{ choice }}</td>
-        <td>{{ choice.label }}</td>
-      </tr>
-    {% endfor %}
-    <h3>Directedness</h3>
-    {% for choice in form.directedness %}
-      <tr>
-       <td>{{ choice }}</td>
-        <td>{{ choice.label }}</td>
-      </tr>
-    {% endfor %}
-    <p><input type="submit"></p>
-  </form>
-</body>
+    <form method="post">
+      <h3>Planarity</h3>
+      {% for choice in form.planarity %}
+        <tr>
+          <td>{{ choice }}</td>
+          <td>{{ choice.label }}</td>
+        </tr>
+      {% endfor %}
+      <h3>Directedness</h3>
+      {% for choice in form.directedness %}
+        <tr>
+         <td>{{ choice }}</td>
+          <td>{{ choice.label }}</td>
+        </tr>
+      {% endfor %}
+      <p><input type="submit"></p>
+    </form>
+  {% endblock %}
+{% endblock %}
