@@ -34,7 +34,7 @@ def search(planarity, directedness):
 
 @app.route('/graphs')
 def graph_home():
-    return 'Here are list of graphs in our database.'
+    return render_template('list.html', graphs=graphs)
 
 @app.route('/graphs/<graph_name>')
 def graph(graph_name):
