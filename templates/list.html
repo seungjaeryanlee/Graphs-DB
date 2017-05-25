@@ -1,13 +1,18 @@
-<!doctype html>
-<title>Graphs DB</title>
-<head>
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='list.css') }}">
-</head>
-<body>
-  <h1>Graphs DB</h1>
-  <ul class="graphs">
-    {% for graph in graphs %}
-      <li> <h3> <a href="graphs/{{ graph.name }}"> {{ graph.name.title() }} Graph </a></h3></li>
-    {% endfor %}
-  </ul>
-</body>
+{% extends "bootstrap/base.html" %}
+{% block html %}
+  {% block head %}
+    <title>Graphs DB</title>
+    {% block styles %}
+      {{super()}}
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='list.css') }}">
+    {% endblock %} 
+  {% endblock %}
+  {% block body %}
+    <h1>Graphs DB</h1>
+    <ul class="graphs">
+      {% for graph in graphs %}
+        <li> <h3> <a href="graphs/{{ graph.name }}"> {{ graph.name.title() }} Graph </a></h3></li>
+      {% endfor %}
+    </ul>
+  {% endblock %}
+{% endblock %}

@@ -1,9 +1,14 @@
-<!doctype html>
-<title>404 Not Found</title>
-<head>
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='404.css') }}">
-</head>
-<body>
-  <h1>404 Not Found</h1>
-  <p>{{ error_msg }}</p>
-</body>
+{% extends "bootstrap/base.html" %}
+{% block html %}
+  {% block head %}
+    <title>404 Not Found</title>
+    {% block styles %}
+      {{super()}}
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='404.css') }}">
+    {% endblock %} 
+  {% endblock %}
+  {% block body %}
+    <h1>404 Not Found</h1>
+    <p>{{ error_msg }}</p>
+  {% endblock %}
+{% endblock %}

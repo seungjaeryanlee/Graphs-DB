@@ -1,22 +1,27 @@
-<!doctype html>
-<title>{{ name }} Graph</title>
-<head>
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-  <h1>{{ graph.name.title() }} Graph</h1>
-  <img src="{{ url_for('static', filename=graph.image) }}">
-  <p>{{ graph.description }}</p>
-  <h2>Properties</h2>
-  <ul class="properties">
-    {% for property in graph.properties %}
-      <li>{{ property }}</li>
-    {% endfor %}
-  </ul>
-  <h2>Numerics</h2>
-  <ul>
-    <li>Average Degree: {{ graph.average_degree }}</li>
-    <li>Chromatic Number: {{ graph.chromatic_number }}</li>
-    <li>Chromatic Index: {{ graph.edge_chromatic_number }}</li>
-  </ul>
-</body>
+{% extends "bootstrap/base.html" %}
+{% block html %}
+  {% block head %}
+    <title>{{ name }} Graph</title>
+    {% block styles %}
+      {{super()}}
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    {% endblock %} 
+  {% endblock %}
+  {% block body %}
+    <h1>{{ graph.name.title() }} Graph</h1>
+    <img src="{{ url_for('static', filename=graph.image) }}">
+    <p>{{ graph.description }}</p>
+    <h2>Properties</h2>
+    <ul class="properties">
+      {% for property in graph.properties %}
+        <li>{{ property }}</li>
+      {% endfor %}
+    </ul>
+    <h2>Numerics</h2>
+    <ul>
+      <li>Average Degree: {{ graph.average_degree }}</li>
+      <li>Chromatic Number: {{ graph.chromatic_number }}</li>
+      <li>Chromatic Index: {{ graph.edge_chromatic_number }}</li>
+    </ul>
+  {% endblock %}
+{% endblock %}
