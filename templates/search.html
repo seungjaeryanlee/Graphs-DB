@@ -10,7 +10,7 @@
   {% block body %}
     <h1>Search Result</h1>
     <ul class="graphs">
-      {% for graph in graphs if matches_filter(graph, planarity, directedness) %}
+      {% for graph in graphs if matches_filter(graph, props) %}
         <li> <h3> <a href="{{ url_for('graph_home')}}/{{ graph.name }}"> {{ graph.name.title() }} Graph </a></h3></li>
       {% else %}
         <h2>No graphs found.</h2>  

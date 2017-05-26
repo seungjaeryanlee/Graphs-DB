@@ -4,15 +4,11 @@ import json
 import random
 from forms import FilterForm
 
-def matches_filter(graph, planarity, directedness):
-    if planarity != 'both':
-        if not planarity in graph['properties']:
-            return False;
-    if directedness != 'both':
-        if not directedness in graph['properties']:
-            return False;
-
-    return True;
+def matches_filter(graph, props):
+    for prop in props:
+        if prop != 'both' and not prop in graph['properties']:
+            return False
+    return True
 
 def create_app():
     app = Flask(__name__)
@@ -38,7 +34,7 @@ def index():
 
 @app.route('/search/<planarity>/<directedness>')
 def search(planarity, directedness):
-    return render_template('search.html', graphs=graphs, matches_filter=matches_filter, planarity=planarity, directedness=directedness)
+    return render_template('search.html', graphs=graphs, matches_filter=matches_filter, props=[planarity, directedness])
 
 @app.route('/graphs')
 def graph_home():
