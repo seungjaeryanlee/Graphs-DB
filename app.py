@@ -10,6 +10,17 @@ def matches_filter(graph, props):
             return False
     return True
 
+def encode_props(props):
+    result = ''
+    for prop in props:
+        result += prop + '+'
+
+    return result
+
+def decode_props(raw):
+    props = raw.split('+')[0:-1]
+    return props
+
 def create_app():
     app = Flask(__name__)
     Bootstrap(app)
@@ -17,24 +28,24 @@ def create_app():
     return app
 
 # Parse data.json
-with open('data.json') as data_file:    
+with open('data.json') as data_file:
     data = json.load(data_file)
 graphs = data['graphs']
 
 app = create_app()
 
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
     form = FilterForm(request.form)
     if request.method == 'POST' and form.validate():
-        return redirect(url_for('search', planarity=form.planarity.data, directedness=form.directedness.data))
+        return redirect(url_for('search', encoded_props = encode_props([form.planarity.data, form.directedness.data])))
     else:
         return render_template('home.html',form=form)
 
-@app.route('/search/<planarity>/<directedness>')
-def search(planarity, directedness):
-    return render_template('search.html', graphs=graphs, matches_filter=matches_filter, props=[planarity, directedness])
+@app.route('/search/<encoded_props>')
+def search(encoded_props):
+    # FIXME: Use dictionray instead of list for props
+    return render_template('search.html', graphs=graphs, matches_filter=matches_filter, props=decode_props(encoded_props))
 
 @app.route('/graphs')
 def graph_home():
