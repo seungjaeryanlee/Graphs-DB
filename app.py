@@ -53,19 +53,35 @@ def populateForm():
 
 def encode_props(props):
     result = ''
-    for prop in props:
-        result += prop + '+'
+    for i in range(len(props)):
+        prop = props[i]
+        for j in range(len(properties[i]['choices'])):
+            if properties[i]['choices'][j]['name'] == prop:
+                result += str(j)
+                break
 
     return result
 
 def decode_props(raw):
-    props = raw.split('+')[0:-1]
+    props = []
+    digits = [int(d) for d in str(raw)]
+    # Check integrity
+    if len(digits) != len(properties):
+        return []
+    for i in range(len(digits)):
+        if len(properties[i]['choices']) > digits[i]: # Check integrity
+            props.append(properties[i]['choices'][digits[i]]['name'])    
+        else:
+            return []
     return props
 
 @app.route('/search/<encoded_props>')
 def search(encoded_props):
-    # FIXME: Use dictionray instead of list for props
-    return render_template('search.html', graphs=graphs, matches_filter=matches_filter, props=decode_props(encoded_props))
+    props = decode_props(encoded_props)
+    if len(props) == 0:
+        return render_template('404.html', error_msg='Unspecified filters'), 404
+    else:
+        return render_template('search.html', graphs=graphs, matches_filter=matches_filter, props=decode_props(encoded_props))
 
 def matches_filter(graph, props):
     for prop in props:
