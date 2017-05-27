@@ -11,19 +11,16 @@
     <h1>Graphs DB</h1>
 
     <form method="post">
-      <h3>Planarity</h3>
-      {% for choice in form.planarity %}
-        <tr>
-          <td>{{ choice }}</td>
-          <td>{{ choice.label }}</td>
-        </tr>
-      {% endfor %}
-      <h3>Directedness</h3>
-      {% for choice in form.directedness %}
-        <tr>
-         <td>{{ choice }}</td>
-          <td>{{ choice.label }}</td>
-        </tr>
+      {% for filter in form.filters %}
+        <div>
+          {{ filter.label }}
+          {% for choice in filter %}
+            <tr>
+              <td>{{ choice.label }}</td>
+              <td>{{ choice }}</td>
+            </tr>
+          {% endfor %}
+        </div>
       {% endfor %}
       <p><input type="submit"></p>
     </form>

@@ -1,0 +1,22 @@
+[
+  {
+    "label": "Planarity",
+    "choices": [
+      {"name": "both", "label": "Both"},
+      {"name": "planar", "label": "Planar"},
+      {"name": "nonplanar", "label": "Nonplanar"}
+    ],
+    "default": "both",
+    "dataRequired": 1
+  },
+  {
+    "label": "Directedness",
+    "choices": [
+      {"name": "both", "label": "Both"},
+      {"name": "directed", "label": "Directed"},
+      {"name": "undirected", "label": "Undirected"}
+    ],
+    "default": "both",
+    "dataRequired": 1
+  }
+]

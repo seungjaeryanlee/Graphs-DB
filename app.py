@@ -2,7 +2,8 @@ from flask import Flask, render_template, redirect, url_for, request
 from flask_bootstrap import Bootstrap
 import json
 import random
-from forms import FilterForm
+from forms import FilterForm, FullForm
+from wtforms.validators import DataRequired
 
 def matches_filter(graph, props):
     for prop in props:
@@ -32,11 +33,28 @@ with open('data.json') as data_file:
     data = json.load(data_file)
 graphs = data['graphs']
 
+# Parse props.json
+with open('props.json') as props_file:
+    properties = json.load(props_file)
+
 app = create_app()
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    form = FilterForm(request.form)
+    form = FullForm(request.form)
+    for prop in properties:
+        new_entry = form.filters.append_entry()
+
+        # Configure new entry with prop
+        new_entry.label = prop['label']
+        new_choices = []
+        for choice in prop['choices']:
+            new_choices.append((choice['name'], choice['label']))
+        new_entry.choices = new_choices
+        new_entry.default = prop['default']
+        if prop['dataRequired'] == 1:
+            new_entry.validators = [DataRequired()]
+
     if request.method == 'POST' and form.validate():
         return redirect(url_for('search', encoded_props = encode_props([form.planarity.data, form.directedness.data])))
     else:
