@@ -18,5 +18,20 @@
     ],
     "default": "all",
     "dataRequired": 1
+  },
+  {
+    "label": "Regular",
+    "choices": [
+      {"name": "all", "label": "All"},
+      {"name": "regular", "label": "Regular"},
+      {"name": "not_regular", "label": "Not regular"},
+      {"name": "0-regular", "label": "0-regular"},
+      {"name": "1-regular", "label": "1-regular"},
+      {"name": "2-regular", "label": "2-regular"},
+      {"name": "3-regular", "label": "3-regular"},
+      {"name": "4-regular", "label": "4-regular"}
+    ],
+    "default": "all",
+    "dataRequired": 1
   }
 ]

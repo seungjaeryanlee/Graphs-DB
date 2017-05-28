@@ -3,7 +3,6 @@ from flask_bootstrap import Bootstrap
 import json
 import random
 from forms import FullForm, RadioField
-from wtforms.validators import DataRequired
 
 # Parse data.json and props.json
 with open('data.json') as data_file:
